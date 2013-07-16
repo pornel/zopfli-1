@@ -854,11 +854,13 @@ void ZopfliDeflatePart(const ZopfliOptions* options, int btype, int final,
   for (i = 0; i <= npoints; i++) {
     size_t start = i == 0 ? instart : splitpoints_uncompressed[i - 1];
     size_t end = i == npoints ? inend : splitpoints_uncompressed[i];
+    const double blockiterationlimit = options->iterationlimitseconds * (end-start) / (inend-instart);
     ZopfliBlockState s;
     ZopfliLZ77Store store;
     ZopfliInitLZ77Store(in, &store);
     ZopfliInitBlockState(options, start, end, 1, &s);
-    ZopfliLZ77Optimal(&s, in, start, end, options->numiterations, &store);
+
+    ZopfliLZ77Optimal(&s, in, start, end, options->numiterations, &store, blockiterationlimit);
     totalcost += ZopfliCalculateBlockSizeAutoType(&store, 0, store.size);
 
     ZopfliAppendLZ77Store(&store, &lz77);

@@ -56,6 +56,8 @@ unsigned CustomPNGDeflate(unsigned char** out, size_t* outsize,
   options.numiterations = insize < 200000
       ? png_options->num_iterations : png_options->num_iterations_large;
 
+  options.iterationlimitseconds = png_options->iterations_time_limit;
+
   ZopfliDeflate(&options, 2 /* Dynamic */, 1, in, insize, &bp, out, outsize);
 
   return 0;  // OK
