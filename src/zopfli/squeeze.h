@@ -41,7 +41,8 @@ dictionary.
 void ZopfliLZ77Optimal(ZopfliBlockState *s,
                        const unsigned char* in, size_t instart, size_t inend,
                        int numiterations,
-                       ZopfliLZ77Store* store);
+                       ZopfliLZ77Store* store,
+                       double iterationlimitseconds);
 
 /*
 Does the same as ZopfliLZ77Optimal, but optimized for the fixed tree of the
