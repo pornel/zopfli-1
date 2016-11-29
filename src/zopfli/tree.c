@@ -29,8 +29,8 @@ Author: jyrki.alakuijala@gmail.com (Jyrki Alakuijala)
 
 void ZopfliLengthsToSymbols(const unsigned* lengths, size_t n, unsigned maxbits,
                             unsigned* symbols) {
-  size_t* bl_count = (size_t*)malloc(sizeof(size_t) * (maxbits + 1));
-  size_t* next_code = (size_t*)malloc(sizeof(size_t) * (maxbits + 1));
+  unsigned int* bl_count = malloc(sizeof(unsigned int) * (maxbits + 1));
+  unsigned int* next_code = malloc(sizeof(unsigned int) * (maxbits + 1));
   unsigned bits, i;
   unsigned code;
 
@@ -93,7 +93,7 @@ void ZopfliCalculateEntropy(const size_t* count, size_t n, double* bitlengths) {
   }
 }
 
-void ZopfliCalculateBitLengths(const size_t* count, size_t n, int maxbits,
+void ZopfliCalculateBitLengths(const size_t* count, int n, int maxbits,
                                unsigned* bitlengths) {
   int error = ZopfliLengthLimitedCodeLengths(count, n, maxbits, bitlengths);
   (void) error;

@@ -382,7 +382,7 @@ static size_t CalculateBlockSymbolSizeGivenCounts(const size_t* ll_counts,
                                                   const ZopfliLZ77Store* lz77,
                                                   size_t lstart, size_t lend) {
   size_t result = 0;
-  size_t i;
+  int i;
   if (lstart + ZOPFLI_NUM_LL * 3 > lend) {
     return CalculateBlockSymbolSizeSmall(
         ll_lengths, d_lengths, lz77, lstart, lend);
@@ -486,7 +486,7 @@ void OptimizeHuffmanForRle(int length, size_t* counts) {
         || AbsDiff(counts[i], limit) >= 4) {
       if (stride >= 4 || (stride >= 3 && sum == 0)) {
         /* The stride must end, collapse what we have, if we have enough (4). */
-        int count = (sum + stride / 2) / stride;
+        size_t count = (sum + stride / 2) / stride;
         if (count < 1) count = 1;
         if (sum == 0) {
           /* Don't make an all zeros stride to be upgraded to ones. */
@@ -714,7 +714,7 @@ static void AddLZ77Block(const ZopfliOptions* options, int btype, int final,
     GetFixedTree(ll_lengths, d_lengths);
   } else {
     /* Dynamic block. */
-    unsigned detect_tree_size;
+    size_t detect_tree_size;
     assert(btype == 2);
 
     GetDynamicLengths(lz77, lstart, lend, ll_lengths, d_lengths);
