@@ -30,7 +30,7 @@ Utilities for creating and using Huffman trees.
 Calculates the bitlengths for the Huffman tree, based on the counts of each
 symbol.
 */
-void ZopfliCalculateBitLengths(const size_t* count, size_t n, int maxbits,
+void ZopfliCalculateBitLengths(const size_t* count, int n, int maxbits,
                                unsigned *bitlengths);
 
 /*

@@ -385,7 +385,7 @@ struct ExtractZlib // Zlib decompression and information extraction
       size_t bpstart = bp;
       if(bp >> 3 >= in.size()) { error = 52; return; } //error, bit pointer will jump past memory
       BFINAL = readBitFromStream(bp, &in[inpos]);
-      unsigned long BTYPE = readBitFromStream(bp, &in[inpos]); BTYPE += 2 * readBitFromStream(bp, &in[inpos]);
+      int BTYPE = readBitFromStream(bp, &in[inpos]); BTYPE += 2 * readBitFromStream(bp, &in[inpos]);
       zlibinfo->resize(zlibinfo->size() + 1);
       zlibinfo->back().btype = BTYPE;
       if(BTYPE == 3) { error = 20; return; } //error: invalid BTYPE
@@ -428,9 +428,9 @@ struct ExtractZlib // Zlib decompression and information extraction
     //get the tree of a deflated block with dynamic tree, the tree itself is also Huffman compressed with a known tree
     std::vector<unsigned long> bitlen(288, 0), bitlenD(32, 0);
     if(bp >> 3 >= inlength - 2) { error = 49; return; } //the bit pointer is or will go past the memory
-    size_t HLIT =  readBitsFromStream(bp, in, 5) + 257; //number of literal/length codes + 257
-    size_t HDIST = readBitsFromStream(bp, in, 5) + 1; //number of dist codes + 1
-    size_t HCLEN = readBitsFromStream(bp, in, 4) + 4; //number of code length codes + 4
+    int HLIT =  readBitsFromStream(bp, in, 5) + 257; //number of literal/length codes + 257
+    int HDIST = readBitsFromStream(bp, in, 5) + 1; //number of dist codes + 1
+    int HCLEN = readBitsFromStream(bp, in, 4) + 4; //number of code length codes + 4
     zlibinfo->back().hlit = HLIT - 257;
     zlibinfo->back().hdist = HDIST - 1;
     zlibinfo->back().hclen = HCLEN - 4;

@@ -475,5 +475,5 @@ int main(int argc, char *argv[]) {
 
   if (dryrun) printf("No files were written because dry run was specified\n");
 
-  return total_errors > 255 ? 255 : total_errors;
+  return total_errors > 255 ? 255 : (int)total_errors;
 }

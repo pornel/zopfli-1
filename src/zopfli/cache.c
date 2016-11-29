@@ -56,7 +56,7 @@ void ZopfliSublenToCache(const unsigned short* sublen,
                          ZopfliLongestMatchCache* lmc) {
   size_t i;
   size_t j = 0;
-  unsigned bestlength = 0;
+  size_t bestlength = 0;
   unsigned char* cache;
 
 #if ZOPFLI_CACHE_LENGTH == 0
